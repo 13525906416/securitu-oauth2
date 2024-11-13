@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.187.129:3306/emap-changsha?serverTimezone=UTC&userUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+  profiles:
+    active: dev
+
+
+# Mybatis-Plus 配置
+mybatis-plus:
+  # 扫描mapper文件
+  mapper-locations:
+    - classpath:**/*Mapper.xml
+logging:
+  level:
+    root: info
+    com.zyb.auth.mapper: debug
+    sql: debug
+##暴露所有指标
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
