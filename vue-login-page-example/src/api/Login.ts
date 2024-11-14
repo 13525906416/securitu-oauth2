@@ -7,22 +7,22 @@ import loginRequest from '../util/http/LoginRequest'
  * @returns 返回AccessToken对象
  */
 export function getToken(data: any) {
-    const headers: any = {
-        'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    if (data.client_secret) {
-        // 设置客户端的basic认证
-        headers.Authorization = `Basic ${base64Str(`${data.client_id}:${data.client_secret}`)}`
-        // 移除入参中的key
-        delete data.client_id
-        delete data.client_secret
-    }
-    // 可以设置为AccessToken的类型
-    return loginRequest.post<any>({
-        url: '/oauth2/token',
-        data,
-        headers
-    })
+  const headers: any = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  }
+  if (data.client_secret) {
+    // 设置客户端的basic认证
+    headers.Authorization = `Basic ${base64Str(`${data.client_id}:${data.client_secret}`)}`
+    // 移除入参中的key
+    delete data.client_id
+    delete data.client_secret
+  }
+  // 可以设置为AccessToken的类型
+  return loginRequest.post<any>({
+    url: '/oauth2/token',
+    data,
+    headers,
+  })
 }
 
 /**
@@ -30,9 +30,9 @@ export function getToken(data: any) {
  * @returns 返回图片验证码信息
  */
 export function getImageCaptcha() {
-    return loginRequest.get<any>({
-        url: '/getCaptcha'
-    })
+  return loginRequest.get<any>({
+    url: '/getCaptcha',
+  })
 }
 
 /**
@@ -41,14 +41,13 @@ export function getImageCaptcha() {
  * @returns 登录状态
  */
 export function loginSubmit(data: any) {
-    return loginRequest.post<any>({
-        url: '/login',
-        data,
-        headers: {
-            nonceId: data.nonceId,
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    })
+  return loginRequest.post<any>({
+    url: '/login',
+    data,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  })
 }
 
 /**
@@ -57,10 +56,10 @@ export function loginSubmit(data: any) {
  * @returns 登录状态
  */
 export function getSmsCaptchaByPhone(params: any) {
-    return loginRequest.get<any>({
-        url: '/getSmsCaptcha',
-        params
-    })
+  return loginRequest.get<any>({
+    url: '/getSmsCaptcha',
+    params,
+  })
 }
 
 /**
@@ -69,42 +68,38 @@ export function getSmsCaptchaByPhone(params: any) {
  * @returns 授权确认页面相关数据
  */
 export function getConsentParameters(queryString: string) {
-    return loginRequest.get<any>({
-        url: `/oauth2/consent/parameters${queryString}`
-    })
+  return loginRequest.get<any>({
+    url: `/oauth2/consent/parameters${queryString}`,
+  })
 }
 
 /**
  * 提交授权确认
  * @param data 客户端、scope等
  * @param requestUrl 请求地址(授权码与设备码授权提交不一样)
- * @param nonceId 保持登录状态
  * @returns 是否确认成功
  */
-export function submitApproveScope(data: any, requestUrl: string, nonceId: string) {
-    return loginRequest.post<any>({
-        url: requestUrl,
-        data,
-        headers: {
-            nonceId,
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    })
+export function submitApproveScope(data: any, requestUrl: string) {
+  return loginRequest.post<any>({
+    url: requestUrl,
+    data,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  })
 }
 
 /**
  * 验证设备码
  * @param data user_code，设备码
- * @param nonceId 保持登录状态
  * @returns 是否确认成功
  */
-export function deviceVerification(data: any, nonceId: string) {
-    return loginRequest.post<any>({
-        url: `/oauth2/device_verification`,
-        data,
-        headers: {
-            nonceId,
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    })
+export function deviceVerification(data: any) {
+  return loginRequest.post<any>({
+    url: `/oauth2/device_verification`,
+    data,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  })
 }

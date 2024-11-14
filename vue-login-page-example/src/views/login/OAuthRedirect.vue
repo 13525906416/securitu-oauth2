@@ -28,14 +28,16 @@ if (code) {
       client_secret: import.meta.env.VITE_OAUTH_CLIENT_SECRET,
       redirect_uri: import.meta.env.VITE_OAUTH_REDIRECT_URI,
       code,
-      state
+      state,
     })
       .then((res: any) => {
         localStorage.setItem('accessToken', JSON.stringify(res))
         router.push({ path: '/' })
       })
-      .catch((e) => {
-        message.warning(`请求token失败：${e.data.error || e.message || e.statusText}`)
+      .catch(e => {
+        message.warning(
+          `请求token失败：${e.data.error || e.message || e.statusText}`,
+        )
       })
   }
 } else {

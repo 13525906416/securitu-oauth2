@@ -17,6 +17,6 @@
 
 <script setup lang="ts">
 const props = defineProps({
-  size: Number
+  size: Number,
 })
 </script>

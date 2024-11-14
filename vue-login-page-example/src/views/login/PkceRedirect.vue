@@ -33,14 +33,16 @@ if (code) {
       redirect_uri: import.meta.env.VITE_PKCE_REDIRECT_URI,
       code,
       code_verifier,
-      state
+      state,
     })
       .then((res: any) => {
         localStorage.setItem('accessToken', JSON.stringify(res))
         router.push({ path: '/' })
       })
-      .catch((e) => {
-        message.warning(`请求token失败：${e.data.error || e.message || e.statusText}`)
+      .catch(e => {
+        message.warning(
+          `请求token失败：${e.data.error || e.message || e.statusText}`,
+        )
       })
   }
 } else {
@@ -53,7 +55,7 @@ if (code) {
   }/oauth2/authorize?response_type=code&client_id=${
     import.meta.env.VITE_PKCE_CLIENT_ID
   }&redirect_uri=${encodeURIComponent(
-    import.meta.env.VITE_PKCE_REDIRECT_URI
+    import.meta.env.VITE_PKCE_REDIRECT_URI,
   )}&scope=message.write%20message.read&code_challenge=${codeChallenge}&code_challenge_method=S256&state=${state}`
 }
 </script>
